@@ -78,7 +78,7 @@ async function fetchProfile(token: string): Promise<any> {
 }
 
 async function fetchPlaylist(token: string):Promise<any> {
-    const result =  await fetch("https://api.spotify.com/v1/playlists/ha0", {
+    const result =  await fetch("https://api.spotify.com/v1/playlists/", {
         method: "GET", headers: { Authorization: `Bearer ${token}` }
     });
     
@@ -87,13 +87,20 @@ async function fetchPlaylist(token: string):Promise<any> {
 
 function populateUI(profile: any, playlist: any) {
     document.getElementById("displayName")!.innerText = profile.display_name;
-
-    document.getElementById("displayListName")!.innerText = playlist.display_list_name;
+    document.getElementById("displayListName")!.innerText = playlist.name;
     if (profile.images[0]) {
         const profileImage = new Image(200, 200);
         profileImage.src = profile.images[0].url;
         document.getElementById("avatar")!.appendChild(profileImage);
-    }
+    };
+
+    if (playlist.images[0]) {
+        const playlistImage = new Image(200, 200);
+        playlistImage.src = playlist.images[0].url;
+        document.getElementById("avatarPlaylist")!.appendChild(playlistImage);
+    };
+
+
     document.getElementById("id")!.innerText = profile.id;
     document.getElementById("email")!.innerText = profile.email;
     document.getElementById("uri")!.innerText = profile.uri;
@@ -101,6 +108,6 @@ function populateUI(profile: any, playlist: any) {
     document.getElementById("url")!.innerText = profile.href;
     document.getElementById("url")!.setAttribute("href", profile.href);
     document.getElementById("imgUrl")!.innerText = profile.images[0]?.url ?? '(no profile image)';
-    document.getElementById("songs")!.innerText = playlist.name ?? '(no name plaaylist';
+    document.getElementById("songs")!.innerText = playlist.tracks.total ?? '(no name plaaylist';
 
 }
