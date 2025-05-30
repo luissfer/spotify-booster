@@ -9,6 +9,6 @@ response=$(
 )
 
 # get playlist data
-tracks=$(jq -r '.tracks.items[].track.album.images[0].url' <<< "$response")
+all=$(jq -r '.tracks.items[].track.artists[].name' <<< "$response")
 
-echo -e "\n$tracks" >> "images.json"
+echo -e "\n$all" >> "/data/artistsnames.json"
