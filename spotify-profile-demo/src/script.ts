@@ -1,3 +1,6 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 const clientId = "";
 const params = new URLSearchParams(window.location.search);
 const code = params.get("code");
@@ -78,7 +81,7 @@ async function fetchProfile(token: string): Promise<any> {
 }
 
 async function fetchPlaylist(token: string):Promise<any> {
-    const result =  await fetch("https://api.spotify.com/v1/playlists/", {
+    const result =  await fetch("https://api.spotify.com/v1/playlists/5cnoavqAllCYTZGIsiGPt9", {
         method: "GET", headers: { Authorization: `Bearer ${token}` }
     });
     
